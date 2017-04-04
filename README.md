@@ -24,6 +24,10 @@ be fairly comprehensive.
 Windows users: The use of "$PWD" for present working directory will not work as expected, instead use the full path. 
 Such as "//c/Users/adamculp/project".
 
+### PHPCompatibility
+
+More info on how to run this tool can be found at: https://github.com/wimg/PHPCompatibility
+
 ```
 $ docker run -it --rm -v "$PWD":/app -w /app adamculp/php-compatibility-check:latest \
 php vendor/bin/phpcs -sv --extensions=vendor/wimg/php-compatibility --standard='PHPCompatibility' \
@@ -42,10 +46,12 @@ on the host system by altering the path used in the command.
 
 #### php7cc
 
+More info on how to run this tool can be found at: https://github.com/sstalle/php7cc
+
 ```
 $ docker run -it --rm -v "$PWD":/app -w /app adamculp/php-compatibility-check:latest \
-php vendor/bin/phpcs -sv --extensions=vendor/wimg/php-compatibility --standard='PHPCompatibility' \
---extensions=php --ignore=vendor --report-file=./phpcompatibility_results.txt .
+php /usr/local/lib/php-compatibility-check/vendor/bin/php7cc --extensions=php \
+--except=vendor > ./php7cc_results.txt .
 ```
 
 #### Phan
@@ -54,10 +60,11 @@ More info on how to run this tool can be found at: https://github.com/etsy/phan
 
 ```
 $ docker run -it --rm -v "$PWD":/app -w /app adamculp/php-compatibility-check:latest \
-php vendor/bin/phan -l . --exclude-directory-list vendor > ./phan_results.txt
+php /usr/local/lib/php-compatibility-check/vendor/bin/phan -l . --exclude-directory-list "vendor/" \
+> ./phan_results.txt
 ```
 
-By default Phan examines code in the following directories:
+By default Phan examines code in the following directories, plus what is specified in the command:
 
 ```php
 'directory_list' => [
