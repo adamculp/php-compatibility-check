@@ -29,7 +29,6 @@ RUN cd $TARGET_DIR && \
     phpize && \
     ./configure --enable-ast && \
     make install && \
-    rm -r php-ast && \
     docker-php-ext-enable ast
 
 RUN chmod 744 $TARGET_DIR/composer-installer.sh
