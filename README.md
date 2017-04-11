@@ -28,6 +28,10 @@ Such as "//c/Users/adamculp/project".
 
 More info on how to run this tool can be found at: https://github.com/wimg/PHPCompatibility
 
+Note: The usage of "--extensions=vendor/wimg/php-compatibility" is a bit of a hack, to work around a bug 
+preventing the rules from being loaded. Normally "--config-set installed_paths vendor/wimg/php-compatibility/" 
+should work.
+
 ```
 $ docker run -it --rm -v "$PWD":/app -w /app adamculp/php-compatibility-check:latest \
 php vendor/bin/phpcs -sv --extensions=vendor/wimg/php-compatibility --standard='PHPCompatibility' \
@@ -42,7 +46,7 @@ the code, and finally, output the results to a text file in the current working 
 This is the most common use case, enabling the user to run the tool on code located anywhere 
 on the host system by altering the path used in the command.
 
-### Other Examples
+### Other Tool Examples
 
 #### php7cc
 
@@ -50,7 +54,7 @@ More info on how to run this tool can be found at: https://github.com/sstalle/ph
 
 ```
 $ docker run -it --rm -v "$PWD":/app -w /app adamculp/php-compatibility-check:latest \
-php /usr/local/lib/php-compatibility-check/vendor/bin/php7cc --extensions=php \
+php vendor/bin/php7cc --extensions=php \
 --except=vendor > ./php7cc_results.txt .
 ```
 
@@ -60,7 +64,7 @@ More info on how to run this tool can be found at: https://github.com/etsy/phan
 
 ```
 $ docker run -it --rm -v "$PWD":/app -w /app adamculp/php-compatibility-check:latest \
-php /usr/local/lib/php-compatibility-check/vendor/bin/phan -l . --exclude-directory-list "vendor/" \
+php vendor/bin/phan -l . --exclude-directory-list "vendor/" \
 > ./phan_results.txt
 ```
 

@@ -20,7 +20,8 @@ RUN apt-get update && \
     apt-get install -y wget && \
     apt-get install -y zip && \
     apt-get install -y git && \
-    apt-get install -y libxml2-dev
+    apt-get install -y libxml2-dev && \
+    docker-php-ext-install xml
 
 # add php-ast extension needed by etsy/phan
 RUN cd $TARGET_DIR && \
@@ -39,7 +40,7 @@ RUN $TARGET_DIR/composer-installer.sh && \
    composer selfupdate && \
    composer require --prefer-stable --prefer-source "hirak/prestissimo:^0.3" && \
    composer require --prefer-stable --prefer-dist \
-       "squizlabs/php_codesniffer:dev-master" \
-       "wimg/php-compatibility:dev-master" \
+       "squizlabs/php_codesniffer:^2.8" \
+       "wimg/php-compatibility:^7.1" \
        "sstalle/php7cc:dev-master" \
        "etsy/phan:dev-master"
