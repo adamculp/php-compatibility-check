@@ -6,7 +6,7 @@ composer.lock file, in an easy to use Docker image.
 
 More specifically this image provides 3 different applications to test with:
 
-- wimg/php-compatibility
+- phpcompatibility/php-compatibility
     * Leverages PHP_Codesniffer to "sniff" code for incompatible code to various versions of PHP.
     It then reports what version of PHP the code is broken with, and what version of PHP the code
     was broken by.
@@ -26,16 +26,13 @@ Such as "//c/Users/adamculp/project".
 
 ### PHPCompatibility
 
-More info on how to run this tool can be found at: https://github.com/wimg/PHPCompatibility
-
-Note: The usage of "--extensions=vendor/wimg/php-compatibility" is a bit of a hack, to work around a bug 
-preventing the rules from being loaded. Normally "--config-set installed_paths vendor/wimg/php-compatibility/" 
-should work.
+More info on how to run this tool can be found at: https://github.com/PHPCompatibility/PHPCompatibility
 
 ```
-$ docker run -it --rm -v "$PWD":/app -w /app adamculp/php-compatibility-check:latest \
-php vendor/bin/phpcs -sv --extensions=vendor/wimg/php-compatibility --standard='PHPCompatibility' \
---extensions=php --ignore=vendor --report-file=./phpcompatibility_results.txt .
+$ docker run -it --rm -v "$PWD":/app -w /app adamculp/php-code-quality:latest sh -c \
+'php /usr/local/lib/php-code-quality/vendor/bin/phpcs -sv --config-set installed_paths  /usr/local/lib/php-code-quality/vendor/phpcompatibility/php-compatibility && \
+php /usr/local/lib/php-code-quality/vendor/bin/phpcs -sv --standard='PHPCompatibility' --extensions=php --ignore=vendor . \
+--report-file=./php_code_quality/phpcompatibility_results.txt .'
 ```
 
 In the example above, Docker runs an interactive terminal to be removed when all is completed, and mounts 

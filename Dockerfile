@@ -1,6 +1,6 @@
 # Choose the desired PHP version
 # Choices available at https://hub.docker.com/_/php/ stick to "-cli" versions recommended
-FROM php:7.1-cli
+FROM php:7.3-cli
 
 MAINTAINER Adam Culp <adamculp@uws.net>
 
@@ -40,7 +40,7 @@ RUN $TARGET_DIR/composer-installer.sh && \
    composer selfupdate && \
    composer require --prefer-stable --prefer-source "hirak/prestissimo:^0.3" && \
    composer require --prefer-stable --prefer-dist \
-       "squizlabs/php_codesniffer:^2.8" \
-       "wimg/php-compatibility:^7.1" \
+       "squizlabs/php_codesniffer:^3.0" \
+       "phpcompatibility/php-compatibility:^9.0" \
        "sstalle/php7cc:dev-master" \
        "etsy/phan:dev-master"
