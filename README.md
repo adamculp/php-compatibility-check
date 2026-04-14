@@ -45,16 +45,6 @@ on the host system by altering the path used in the command.
 
 ### Other Tool Examples
 
-#### php7cc
-
-More info on how to run this tool can be found at: https://github.com/sstalle/php7cc
-
-```
-$ docker run -it --rm -v "$PWD":/app -w /app adamculp/php-compatibility-check:latest \
-php vendor/bin/php7cc --extensions=php \
---except=vendor > ./php7cc_results.txt .
-```
-
 #### Phan
 
 More info on how to run this tool can be found at: https://github.com/etsy/phan
