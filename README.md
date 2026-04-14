@@ -1,19 +1,15 @@
 # php-compatibility-check
-Docker image to check PHP code for compatibility to PHP versions.
+A Docker image to check PHP code for compatibility with PHP versions.
 
-The objective is to provide a quick report of known PHP security alerts, based on the contents from a given 
-composer.lock file, in an easy to use Docker image.
+The objective is to provide a quick report of known PHP security alerts, based on the contents of a given 
+composer.lock file, in an easy-to-use Docker image.
 
-More specifically this image provides 3 different applications to test with:
+More specifically, this image provides:
 
 - phpcompatibility/php-compatibility
     * Leverages PHP_Codesniffer to "sniff" code for incompatible code to various versions of PHP.
     It then reports what version of PHP the code is broken with, and what version of PHP the code
     was broken by.
-- sstalle/php7cc
-    * Runs against the codebase and indicates what is broken in PHP version 7
-- etsy/phan
-    * Runs against the codebase and indicates what is broken in PHP version 7+
 
 
 IMPORTANT: This tool makes no claims of being an exhaustive reference, but with the 3 included tools, should 
@@ -21,7 +17,7 @@ be fairly comprehensive.
 
 ## Usage
 
-Windows users: The use of "$PWD" for present working directory will not work as expected, instead use the full path. 
+Windows users: The use of "$PWD" for the present working directory will not work as expected; instead, use the full path. 
 Such as "//c/Users/adamculp/project".
 
 ### PHPCompatibility
@@ -37,45 +33,18 @@ php /usr/local/lib/php-code-quality/vendor/bin/phpcs -sv --standard='PHPCompatib
 
 In the example above, Docker runs an interactive terminal to be removed when all is completed, and mounts 
 the current host directory ($PWD) inside the container, sets this as the current working directory, and then 
-loads the image adamculp/php-compatibility-check. Following this we call the chosen application to check on 
+loads the image adamculp/php-compatibility-check. Following this, we call the chosen application to check on 
 the code, and finally, output the results to a text file in the current working directory.
 
 This is the most common use case, enabling the user to run the tool on code located anywhere 
 on the host system by altering the path used in the command.
 
-### Other Tool Examples
-
-#### Phan
-
-More info on how to run this tool can be found at: https://github.com/etsy/phan
-
-```
-$ docker run -it --rm -v "$PWD":/app -w /app adamculp/php-compatibility-check:latest \
-php vendor/bin/phan -l . --exclude-directory-list "vendor/" \
-> ./phan_results.txt
-```
-
-By default Phan examines code in the following directories, plus what is specified in the command:
-
-```php
-'directory_list' => [
-        'src',
-        'tests/Phan',
-        'vendor/phpunit/phpunit/src',
-        'vendor/symfony/console',
-        '.phan/stubs',
-    ],
-```
-
-To do otherwise it will require you to edit the Phan Phan/.phan/config.php file, and use the Alternative 
-Preparations as indicated below.
-
 ## Alternative Preparations
 
 Rather than allowing Docker to retrieve the image from Docker Hub, users could also build the docker image locally 
-by cloning the image repo from Github.
+by cloning the image repo from GitHub.
 
-Why? As an example, a different version of PHP provided by including a different PHP image may be desired. Or a 
+Why? For example, a different version of PHP may be desired by including a different PHP image. Or a 
 specific version of the tools loaded by Composer might be required.
 
 After cloning, navigate to the location:
@@ -99,5 +68,5 @@ $ docker build -t adamculp/php-compatibility-check https://github.com/adamculp/p
 
 ## Enjoy!
 
-Please star, on Docker Hub and/or Github, if you find this helpful.
+Please star, on Docker Hub and/or GitHub, if you find this helpful.
 
